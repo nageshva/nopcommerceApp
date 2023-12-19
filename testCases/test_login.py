@@ -12,6 +12,7 @@ class Test_001_Login:
 
     logger=LogGen.loggen()
 
+    @pytest.mark.regression
     def test_homePage_Title(self,setup):
 
         self.logger.info('** ** *** * Test_001_Login ** ** ** ** **')
@@ -31,6 +32,8 @@ class Test_001_Login:
             self.logger.error('** ** ** ** * Home Page title test is failed ** * ** ** ')
             assert False
 
+    @pytest.mark.sanity
+    @pytest.mark.regression
     def test_Login(self,setup):
 
         self.logger.info('** ** ** ** ** * Verifying Login test ** **  ** **')

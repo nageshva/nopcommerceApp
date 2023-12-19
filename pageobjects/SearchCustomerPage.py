@@ -2,29 +2,38 @@ from selenium.webdriver.common.by import By
 
 
 class SearchCustmer():
-    # Add customer page
+    # First locate the objects/Web elements
+    # Search customer page
+    txtsearchBoxXpth="//div[@class='search-text']"
     txtEmailId = "SearchEmail"
-    txtFirstNameId = "SearchFirstName"
-    txtLastNameId = "SearchLastName"
+    txtFirstName_id = "SearchFirstName"
+    txtLastName_id = "SearchLastName"
     btnSearch_id = "search-customers"
     table_xpath = "//table[@id='customers-grid']"
     tableRows_xpath = "//table[@id='customers-grid']//tbody/tr"
     tableColumns_xpath = "//table[@id='customers-grid']//tbody/tr/td"
 
+    # Driver Initilization
+
     def __init__(self, driver):
         self.driver = driver
+
+    # Write Actions methods for each Object/Web Elements
+    def Search(self):
+        self.driver.find_element(By.XPATH,self.txtsearchBoxXpth).click()
+
 
     def setEmail(self, Email):
         self.driver.find_element(By.ID, self.txtEmailId).clear()
         self.driver.find_element(By.ID, self.txtEmailId).send_keys(Email)
 
     def setFirstName(self, fname):
-        self.driver.find_element(By.ID, self.txtFirstNameId).clear()
-        self.driver.find_element(By.ID, self.txtFirstNameId).send_keys(fname)
+        self.driver.find_element(By.ID, self.txtFirstName_id).clear()
+        self.driver.find_element(By.ID, self.txtFirstName_id).send_keys(fname)
 
     def setLastName(self, lname):
-        self.driver.find_element(By.ID, self.txtLastNameId).clear()
-        self.driver.find_element(By.ID, self.txtLastNameId).send_keys(lname)
+        self.driver.find_element(By.ID, self.txtLastName_id).clear()
+        self.driver.find_element(By.ID, self.txtLastName_id).send_keys(lname)
 
     def clickSearch(self):
         self.driver.find_element(By.ID, self.btnSearch_id).click()
@@ -44,3 +53,15 @@ class SearchCustmer():
                 flag = True
                 break
         return flag
+
+    def searchCustmerByName(self,Name):
+        flag = False
+        for r in range(1, self.getNoOfRows() + 1):
+            table = self.driver.find_element(By.XPATH, self.table_xpath)
+            name = table.find_element(By.XPATH, "//table[@id='customers-grid']//tbody/tr[" + str(r) + "]/td[3]").text
+            if name == Name:
+                flag = True
+                break
+        return flag
+
+
