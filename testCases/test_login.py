@@ -55,6 +55,32 @@ class Test_001_Login:
             self.driver.close()
             self.logger.error('** ** ** ** ** * Login test Failed ** **  ** **')
             assert False
+    @pytest.mark.smoke
+    def test_Login_Negative(self, setup):
+
+        self.logger.info('** ** ** ** ** * Verifying Login test with invalid details ** **  ** **')
+        self.driver = setup
+        self.driver.get(self.baseURL)
+        self.lp = LoginPage(self.driver)
+        self.lp.setUsername("hari@gmail.com")
+        self.lp.setPassword("jajiri123")
+
+        self.lp.clcikLogin()
+
+        if self.lp.error_msg_xpath=="Login was unsuccessful. Please correct the errors and try again." :
+            assert True
+
+            self.logger.info('** ** ** ** ** * Negative test is passed ** **  ** **')
+            self.driver.close()
+
+
+
+
+
+
+
+
+
 
 
 

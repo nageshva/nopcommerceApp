@@ -10,6 +10,8 @@ class LoginPage:
     button_login_xpath="//button[normalize-space()='Log in']"
     link_logout_linktext="Logout"
 
+    error_msg_xpath="//div[@class='message-error validation-summary-errors']"
+
 
   #Driver Initilization
     def __init__(self,driver):
@@ -30,4 +32,9 @@ class LoginPage:
 
     def clickLogout(self):
         self.driver.find_element(By.LINK_TEXT,self.link_logout_linktext).click()
+
+    def error_msg(self):
+        self.driver.find_element(By.XPATH,self.error_msg_xpath)
+
+
 
